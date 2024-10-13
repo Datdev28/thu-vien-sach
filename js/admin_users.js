@@ -91,7 +91,6 @@ function renderUser() {
     fixBtn.addEventListener('click', () => {
       const userFixId = fixBtn.dataset.user;
       updateFromToUser(userFixId);
-
     })
   });
 }

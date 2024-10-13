@@ -259,8 +259,15 @@ body {
   margin-bottom: 10px;
   margin-left: 45px;
 }
+.tac_pham_kinh_dien .container-full .container-book .book-item a, .thu_vien_de_xuat .container-full .container-book .book-item a, .sach_dang_xem .container-full .container-book .book-item a {
+  width: 90px;
+  height: 35px;
+  margin-left: 5rem;
+  margin-top: 10px;
+}
 .tac_pham_kinh_dien .container-full .container-book .book-item a button, .thu_vien_de_xuat .container-full .container-book .book-item a button, .sach_dang_xem .container-full .container-book .book-item a button {
   background-color: #1c7c26;
+  margin-top: -10px;
 }
 .tac_pham_kinh_dien .container-full .container-book .book-item a button:hover, .thu_vien_de_xuat .container-full .container-book .book-item a button:hover, .sach_dang_xem .container-full .container-book .book-item a button:hover {
   background-color: rgb(10, 43, 10);

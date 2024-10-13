@@ -256,8 +256,13 @@ body {
           margin-left: 45px;
         }
         a {
+          width: 90px;
+          height: 35px;
+          margin-left: 5rem;
+          margin-top: 10px;
           button {
             background-color: $color-button;
+            margin-top: -10px;
             &:hover {
               background-color: rgb(10, 43, 10);
             }
