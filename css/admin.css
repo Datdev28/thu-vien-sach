@@ -34,4 +34,7 @@ h3 {
 .container-full .table td:nth-child(5) {
   width: 300px;
   text-align: center;
+}
+.container-full .modal {
+  background-color: red;
 }/*# sourceMappingURL=admin.css.map */

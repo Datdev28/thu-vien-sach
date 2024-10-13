@@ -9,10 +9,57 @@ function removeFromToUser(userDeleteId) {
     if(user.id !== userDeleteId) {
       newUser.push(user);
     }
-    users = newUser;
-    saveToUser();
+  });
+  users = newUser;
+  saveToUser();
+}
+function updateFromToUser(userFixId) {
+  const userToFix = users.find(user => user.id === parseInt(userFixId));
+  document.querySelector('.modal-title').innerText = `Chỉnh sửa người dùng: ${userToFix.id}`;
+  document.querySelector('.modal-body').innerHTML = `
+    <div class="mb-3">
+      <label for="phoneUser" class="form-label">Số điện thoại</label>
+      <input type="text" class="form-control" id="phoneUserFix" value="${userToFix.phoneUser}">
+    </div>
+    <div class="mb-3">
+      <label for="passwordUser" class="form-label">Mật khẩu</label>
+      <input type="text" class="form-control" id="passwordUserFix" value="${userToFix.passWordUser}">
+    </div>
+  `;
+
+  const myModal = new bootstrap.Modal(document.getElementById('modalFixUser'));
+  myModal.show();
+
+  const fixSaveBtn = document.getElementById("fixSave");
+  const newFixSaveBtn = fixSaveBtn.cloneNode(true);
+  fixSaveBtn.replaceWith(newFixSaveBtn);
+
+  newFixSaveBtn.addEventListener('click', () => {
+    const phoneUserFix = document.getElementById('phoneUserFix').value;
+    const passwordUserFix = document.getElementById('passwordUserFix').value;
+    
+    let testPhoneUserFix = true;
+    users.forEach((user) => {
+      if (user.phoneUser === phoneUserFix && user.id !== parseInt(userFixId)) {
+        testPhoneUserFix = false;
+      }
+    });
+    if (testPhoneUserFix) {
+      users.forEach((user) => {
+        if (user.id === parseInt(userFixId)) {
+          user.phoneUser = phoneUserFix;
+          user.passWordUser = passwordUserFix;
+        }
+      });
+      saveToUser();
+      renderUser();
+      myModal.hide();
+    } else {
+      console.log("Số điện thoại đã tồn tại.");
+    }
   });
 }
+
 function renderUser() {
   const usersInfo = document.querySelector('.users-info');
   let todoUsers = "";
@@ -33,8 +80,6 @@ function renderUser() {
     `
   });
   usersInfo.innerHTML = todoUsers;
-  console.log(users);
-  console.log(todoUsers);
   document.querySelectorAll('.delete-btn').forEach((fixBtn) => {
     fixBtn.addEventListener('click', () => {
       const userDeleteId = parseInt(fixBtn.dataset.user);
@@ -42,9 +87,11 @@ function renderUser() {
       renderUser();
     });
   });
-  // document.querySelectorAll('.fix-btn').forEach((fixBtn) => {
-  //   fixBtn.addEventListener('click', () => {
-  //     const userFix = fixBtn.dataset.user;
-  //   })
-  // });
+  document.querySelectorAll('.fix-btn').forEach((fixBtn) => {
+    fixBtn.addEventListener('click', () => {
+      const userFixId = fixBtn.dataset.user;
+      updateFromToUser(userFixId);
+
+    })
+  });
 }
