@@ -1,8 +1,11 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
+let userId = localStorage.getItem('userId') ? parseInt(localStorage.getItem('userId')) : 1;
 function saveToUser() {
   localStorage.setItem("users", JSON.stringify(users));
 }
-
+function saveToUserId() {
+  localStorage.setItem('userId', userId);
+}
 export function clearInputs() {
   document.getElementById("phone").value = "";
   document.getElementById("password").value = "";
@@ -32,7 +35,6 @@ export function sign() {
     
   });
   const signConfirmBtn = document.querySelector(".js-sign-confirm");
-  console.log(users);
   signConfirmBtn.addEventListener("click", (event) => {
     let test = false;
     event.preventDefault();
@@ -49,9 +51,13 @@ export function sign() {
     if (!test) {
       if (passWord.length >= 6 && passWord === confirmPassword) {
         users.push({
+          id : userId, 
           phoneUser: phone,
           passWordUser: passWord,
         });
+        userId++;
+        saveToUserId();
+        console.log(users);
         saveToUser();
         signConfirmBtn.innerHTML = `
            <img src="image_book_special/Rolling@1x-1.0s-200px-200px.gif" >
@@ -69,8 +75,10 @@ export function sign() {
       }
     } else {
       remind.style.display = "block";
+      registerForm.style.overflow = 'hidden';
     }
   });
+
 }
 export function login() {
   const loginForm = document.getElementById("loginForm");
