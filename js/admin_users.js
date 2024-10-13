@@ -2,6 +2,8 @@ let users = JSON.parse(localStorage.getItem("users")) || [];
 function saveToUser() {
   localStorage.setItem("users", JSON.stringify(users));
 }
+let timeOutDelete;
+let timeOutFix;
 renderUser();
 function removeFromToUser(userDeleteId) {
   const newUser = []; 
@@ -12,6 +14,14 @@ function removeFromToUser(userDeleteId) {
   });
   users = newUser;
   saveToUser();
+      clearTimeout(timeOutDelete);
+      const containerMessage = document.querySelector('.container-message-heart');
+      containerMessage.style.transform = 'translateX(320px)';
+      containerMessage.style.opacity = '1';
+      timeOutDelete = setTimeout(() => {
+        containerMessage.style.opacity = '0';
+        containerMessage.style.transform = 'translateX(-330px)';
+      }, 1500);
 }
 function updateFromToUser(userFixId) {
   const userToFix = users.find(user => user.id === parseInt(userFixId));
@@ -52,10 +62,18 @@ function updateFromToUser(userFixId) {
         }
       });
       saveToUser();
-      renderUser();
       myModal.hide();
+      clearTimeout(timeOutFix);
+      const containerMessageSave = document.querySelector('.container-message-save');
+      containerMessageSave.style.transform = 'translateX(320px)';
+      containerMessageSave.style.opacity = '1';
+      timeOutFix = setTimeout(() => {
+        containerMessageSave.style.opacity = '0';
+        containerMessageSave.style.transform = 'translateX(-330px)';
+      }, 1500);
+      renderUser(); 
     } else {
-      console.log("Số điện thoại đã tồn tại.");
+      alert("Tên tài khoản đã tồn tại!");
     }
   });
 }
@@ -94,3 +112,4 @@ function renderUser() {
     })
   });
 }
+
